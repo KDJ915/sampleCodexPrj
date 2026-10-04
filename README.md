@@ -32,6 +32,24 @@
 > Gmail을 사용하는 경우 일반 계정 비밀번호가 아니라 2단계 인증 후 발급한 앱 비밀번호를
 > `SMTP_PASSWORD`에 넣으세요. 비밀 값은 코드나 로그에 입력하지 마세요.
 
+### `Missing required Actions secrets` 오류 해결
+
+이 오류는 코드 문제가 아니라 GitHub 저장소에 발송 자격 증명이 아직 등록되지 않았다는 뜻입니다.
+`Settings → Secrets and variables → Actions → Repository secrets`에서 **New repository secret**을
+눌러 다음 값을 각각 등록합니다. 값 자체를 채팅, 이슈 또는 저장소 파일에 올리지 마세요.
+
+```text
+OPENAI_API_KEY       OpenAI Platform에서 발급한 API 키
+BRIEFING_RECIPIENT   브리핑을 받을 실제 이메일 주소
+SMTP_HOST            메일 제공업체의 SMTP 주소 (Gmail: smtp.gmail.com)
+SMTP_USERNAME        SMTP 로그인 계정 (Gmail: 전체 Gmail 주소)
+SMTP_PASSWORD        SMTP 앱 비밀번호 (Gmail: 2단계 인증 후 발급)
+```
+
+등록을 마치면 실패한 실행 화면의 **Re-run jobs → Re-run failed jobs**를 선택합니다. Secret은 저장 후
+새로 시작한 실행부터 적용되며 로그에는 마스킹됩니다. 워크플로는 이 검사를 가장 먼저 수행하고,
+누락된 항목과 설정 페이지 링크를 실행 요약에 표시합니다.
+
 ## 로컬 실행
 
 Python 3.11 이상에서 다음 환경 변수를 설정한 후 실행합니다.
